@@ -224,10 +224,37 @@ menu-gen/
 
 ## 🔒 Security Considerations
 
-- Use strong database passwords
-- Keep your `.env` file secure and never commit it to version control
+### Environment Variables
+
+- **NEVER commit your `.env` file to version control**
+- The `.gitignore` file is configured to exclude `.env` files
+- Use `server/env.example` as a template for your environment variables
+- Keep your API keys and database credentials secure
+
+### Sensitive Information Protection
+
+- Database passwords and connection strings
+- API keys (OpenWeatherMap, etc.)
+- Server configuration details
+- SSL certificates and private keys
+
+### Best Practices
+
+- Use strong, unique passwords for your database
 - Consider using HTTPS in production
-- Regularly update dependencies
+- Regularly update dependencies for security patches
+- Use environment-specific configuration files
+- Never hardcode sensitive information in your source code
+
+### Repository Security
+
+- The `.gitignore` file excludes:
+  - `.env` files (environment variables)
+  - `node_modules/` (dependencies)
+  - Log files and temporary files
+  - IDE configuration files
+  - Database files and backups
+  - SSL certificates and keys
 
 ## 🐛 Troubleshooting
 
