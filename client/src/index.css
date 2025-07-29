@@ -232,6 +232,79 @@ body {
   margin-top: 20px;
 }
 
+/* Menu-specific styles */
+.menu-header {
+  text-align: center;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #e1e5e9;
+  padding-bottom: 20px;
+}
+
+.menu-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.menu-date {
+  font-size: 18px;
+  color: #666;
+  font-style: italic;
+}
+
+.menu-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 15px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.menu-day {
+  min-width: 80px;
+  text-align: center;
+}
+
+.day-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.day-date {
+  font-size: 14px;
+  color: #666;
+  background: #f8f9fa;
+  border-radius: 4px;
+  padding: 2px 6px;
+  display: inline-block;
+}
+
+.menu-meal {
+  flex: 1;
+}
+
+.menu-meal .meal-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.meal-detail {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 2px;
+}
+
 @media print {
   .no-print {
     display: none !important;
@@ -240,6 +313,31 @@ body {
   .print-section {
     box-shadow: none;
     border: 1px solid #ddd;
+    padding: 30px;
+  }
+  
+  .menu-header {
+    margin-bottom: 40px;
+  }
+  
+  .menu-title {
+    font-size: 32px;
+  }
+  
+  .menu-date {
+    font-size: 20px;
+  }
+  
+  .menu-item {
+    padding: 20px 0;
+  }
+  
+  .day-name {
+    font-size: 18px;
+  }
+  
+  .menu-meal .meal-name {
+    font-size: 20px;
   }
   
   body {

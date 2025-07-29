@@ -94,25 +94,7 @@ function App() {
     content: () => printRef.current,
   });
 
-  const handleExport = () => {
-    const csvContent = [
-      ['Day', 'Date', 'Meal', 'Protein', 'Weather'],
-      ...menu.map((meal, index) => [
-        ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][index],
-        format(new Date(meal.date), 'MMM dd, yyyy'),
-        meal.name,
-        meal.protein,
-        meal.weather ? `${meal.weather.temp}°F ${meal.weather.condition}` : 'N/A'
-      ])
-    ].map(row => row.join(',')).join('\n');
-    const blob = new Blob([csvContent], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `weekly-menu-${format(new Date(), 'yyyy-MM-dd')}.csv`;
-    a.click();
-    window.URL.revokeObjectURL(url);
-  };
+
 
   const toggleMealSelection = (index) => {
     setSelectedMeals(prev => ({
@@ -205,12 +187,6 @@ function App() {
                   Shuffle Unchecked
                 </button>
                 <button 
-                  className="btn btn-secondary"
-                  onClick={handleExport}
-                >
-                  Export CSV
-                </button>
-                <button 
                   className="btn"
                   onClick={handlePrint}
                 >
@@ -220,51 +196,37 @@ function App() {
               </div>
             </div>
             <div ref={printRef} className="print-section">
-              <div className="grid grid-3">
-                {menu.map((meal, index) => (
-                  <div key={index} className="meal-card">
-                    <div className="checkbox-container no-print">
-                      <input
-                        type="checkbox"
-                        checked={selectedMeals[index] || false}
-                        onChange={() => toggleMealSelection(index)}
-                      />
-                      <label>Keep this meal</label>
-                    </div>
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="meal-name">{meal.name}</h3>
-                      <div className="text-right">
-                        <div className="text-sm text-gray-600">
-                          {format(new Date(meal.date), 'EEE, MMM dd')}
-                        </div>
-                        {meal.weather && (
-                          <div className="flex items-center gap-1 mt-1">
-                            <span>{getWeatherIcon(meal.weather.condition)}</span>
-                            <span className="text-sm">{meal.weather.temp}°F</span>
-                          </div>
-                        )}
+              <div className="menu-header">
+                <h2 className="menu-title">Weekly Meal Plan</h2>
+                <div className="menu-date">{format(new Date(), 'MMMM yyyy')}</div>
+              </div>
+              <div className="menu-content">
+                {menu.map((meal, index) => {
+                  const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                  const dayName = dayNames[index];
+                  const date = format(new Date(meal.date), 'd');
+                  return (
+                    <div key={index} className="menu-item">
+                      <div className="checkbox-container no-print">
+                        <input
+                          type="checkbox"
+                          checked={selectedMeals[index] || false}
+                          onChange={() => toggleMealSelection(index)}
+                        />
+                        <label>Keep this meal</label>
+                      </div>
+                      <div className="menu-day">
+                        <div className="day-name">{dayName}</div>
+                        <div className="day-date">{date}</div>
+                      </div>
+                      <div className="menu-meal">
+                        <div className="meal-name">{meal.name}</div>
+                        {meal.protein && <div className="meal-detail">{meal.protein}</div>}
+                        {meal.cuisine && <div className="meal-detail">{meal.cuisine}</div>}
                       </div>
                     </div>
-                    <div className="meal-details">
-                      <div className="mb-2">
-                        <span className="meal-tag">{meal.protein}</span>
-                        <span className="meal-tag">{meal.cuisine}</span>
-                        <span className="meal-tag">{meal.cook_time}</span>
-                      </div>
-                      <div className="text-sm">
-                        <strong>Cooking Method:</strong> {meal.cook_method || 'N/A'}
-                      </div>
-                      {meal.source && (
-                        <div className="text-sm">
-                          <strong>Source:</strong> {meal.source}
-                        </div>
-                      )}
-                      <div className="text-sm">
-                        <strong>Category:</strong> {meal.category}
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>
