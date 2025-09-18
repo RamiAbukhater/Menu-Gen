@@ -11,6 +11,16 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+# Build output
+/server-java/target/
+
+# Secrets (anchored to repo root)
+/server-java/src/main/resources/application-local.properties
+
+# Misc
+.DS_Store
+*.class
+
 # Runtime data
 pids
 *.pid
